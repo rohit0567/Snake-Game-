@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>Snake Game</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="body">
+        <div id="scoreBox">Score: 0</div>
+        <div id="hiscoreBox">HiScore: 0</div>
+        <div id="board"></div>
+        <div id="gameOverScreen">
+         <h1>GAME OVER</h1>
+         <p>Your Score: <span id="finalScore">0</span></p>
+          <button onclick="restartGame()">Restart</button>
+     </div>
+    </div>
+    
+
+    <script src="logic.js"></script>
+</body>
+</html>

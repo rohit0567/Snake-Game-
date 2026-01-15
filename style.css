@@ -1,0 +1,144 @@
+/* ================= RESET ================= */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+}
+
+/* ================= HTML & BODY ================= */
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  touch-action: none;
+  overscroll-behavior: none;
+}
+
+body {
+  background: url("/img/bg.jpg") center / cover no-repeat fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* ================= GAME CONTAINER ================= */
+.container {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* ================= GAME BOARD ================= */
+#board {
+  background: linear-gradient(rgb(170, 236, 170), rgb(236, 236, 167));
+  width: min(90vmin, 95vw);
+  height: min(90vmin, 95vw);
+  border: 2px solid black;
+  display: grid;
+  grid-template-rows: repeat(18, 1fr);
+  grid-template-columns: repeat(18, 1fr);
+  position: relative;
+  touch-action: none;
+}
+
+/* ================= SCORE ================= */
+#scoreBox, #hiscoreBox {
+  position: fixed;
+  top: 10px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  font-family: 'New Tegomin', serif;
+  color: white;
+  text-shadow: 0 0 6px black;
+  z-index: 5;
+}
+
+#scoreBox {
+  left: 10px;
+}
+
+#hiscoreBox {
+  right: 10px;
+}
+
+/* ================= SNAKE ================= */
+.head {
+  background-color: red;
+  border-radius: 10%;
+}
+
+.snake {
+  background-color: rgb(0, 128, 36);
+  border-radius: 20%;
+}
+
+/* ================= FOOD ================= */
+.food {
+  background: linear-gradient(red, purple);
+  border-radius: 50%;
+}
+
+/* ================= BLUR EFFECT ================= */
+.blur {
+  filter: blur(6px);
+  pointer-events: none;
+}
+
+/* ================= GAME OVER SCREEN ================= */
+#gameOverScreen {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(10px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  visibility: hidden;
+  z-index: 10;
+  text-align: center;
+  padding: 20px;
+}
+
+#gameOverScreen h1 {
+  color: #00ffea;
+  font-size: 2.5rem;
+  text-shadow: 0 0 15px #00ffea;
+}
+
+#gameOverScreen p {
+  color: white;
+  font-size: 1.1rem;
+}
+
+#gameOverScreen button {
+  margin-top: 20px;
+  padding: 12px 30px;
+  font-size: 1rem;
+  border: none;
+  background: linear-gradient(45deg, #00ffea, #00ff6a);
+  border-radius: 30px;
+  cursor: pointer;
+  box-shadow: 0 0 15px #00ffea;
+}
+
+/* ================= MOBILE OPTIMIZATION ================= */
+@media (max-width: 600px) {
+  #board {
+    width: 95vw;
+    height: 95vw;
+  }
+
+  #scoreBox, #hiscoreBox {
+    font-size: 1rem;
+  }
+
+  #gameOverScreen h1 {
+    font-size: 2rem;
+  }
+}
