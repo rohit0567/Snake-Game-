@@ -18,7 +18,7 @@ html, body {
 }
 
 body {
-  background: url("/img/bg.jpg") center / cover no-repeat fixed;
+  background: url("./img/bg.jpg") center / cover no-repeat fixed;
   display: flex;
   justify-content: center;
   align-items: center;
