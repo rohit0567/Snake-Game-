@@ -9,7 +9,14 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="body">
+    <!-- Start Screen -->
+    <div id="startScreen" class="startScreen">
+        <h1>SNAKE GAME</h1>
+        <p>Press Start or Tap to Begin</p>
+        <button id="startBtn" class="startBtn">START</button>
+    </div>
+
+    <div class="body" id="gameContainer" style="display: none;">
         <div id="scoreBox">Score: 0</div>
         <div id="hiscoreBox">HiScore: 0</div>
         <div id="board"></div>

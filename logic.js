@@ -1,6 +1,7 @@
 // ================================
 // Game Constants & Variables
 // ================================
+let gameStarted = false;
 let inputDir = { x: 0, y: 0 };
 
 const foodSound = new Audio('music/food.mp3');
@@ -8,7 +9,7 @@ const gameOverSound = new Audio('music/gameover.mp3');
 const moveSound = new Audio('music/move.mp3');
 const musicSound = new Audio('music/music.mp3');
 
-let speed = 16;
+let speed = 14;
 let score = 0;
 let lastPaintTime = 0;
 let gameOver = false;
@@ -27,12 +28,15 @@ const scoreBox = document.getElementById("scoreBox");
 const hiscoreBox = document.getElementById("hiscoreBox");
 const gameOverScreen = document.getElementById("gameOverScreen");
 const finalScore = document.getElementById("finalScore");
+const startScreen = document.getElementById("startScreen");
+const startBtn = document.getElementById("startBtn");
+const gameContainer = document.getElementById("gameContainer");
 
 // ================================
 // Main Game Loop
 // ================================
 function main(ctime) {
-    if (gameOver) return;
+    if (gameOver || !gameStarted) return;
 
     window.requestAnimationFrame(main);
 
@@ -124,7 +128,37 @@ function gameEngine() {
         snakeElement.style.gridRowStart = e.y;
         snakeElement.style.gridColumnStart = e.x;
 
-        snakeElement.classList.add(index === 0 ? "head" : "snake");
+        if (index === 0) {
+            snakeElement.classList.add("head");
+            
+            // Add rotation based on direction
+            let rotation = 0;
+            if (inputDir.x === 1) rotation = 0; // Right
+            else if (inputDir.x === -1) rotation = 180; // Left
+            else if (inputDir.y === 1) rotation = 90; // Down
+            else if (inputDir.y === -1) rotation = 270; // Up
+            
+            snakeElement.style.transform = `rotate(${rotation}deg)`;
+            
+            // Create eyes container
+            let eyesContainer = document.createElement("div");
+            eyesContainer.className = "eyes";
+            
+            // Create left eye
+            let leftEye = document.createElement("div");
+            leftEye.className = "eye";
+            eyesContainer.appendChild(leftEye);
+            
+            // Create right eye
+            let rightEye = document.createElement("div");
+            rightEye.className = "eye";
+            eyesContainer.appendChild(rightEye);
+            
+            snakeElement.appendChild(eyesContainer);
+        } else {
+            snakeElement.classList.add("snake");
+        }
+        
         board.appendChild(snakeElement);
     });
 
@@ -173,7 +207,7 @@ if (hiscore === null) {
 // Controls
 // ================================
 window.addEventListener("keydown", e => {
-    if (gameOver) return;
+    if (gameOver || !gameStarted) return;
 
     moveSound.play();
 
@@ -194,22 +228,44 @@ window.addEventListener("keydown", e => {
 });
 
 // ================================
-// Start Game
+// Start Game Function
 // ================================
-musicSound.play();
-window.requestAnimationFrame(main);
+function startGame() {
+    if (gameStarted) return;
+    
+    gameStarted = true;
+    startScreen.style.display = "none";
+    gameContainer.style.display = "flex";
+    musicSound.play();
+    window.requestAnimationFrame(main);
+}
+
+// Start Screen Event Listeners
+startBtn.addEventListener("click", startGame);
+startScreen.addEventListener("click", startGame);
+
+// Keyboard event for Enter/Space to start
+window.addEventListener("keydown", (e) => {
+    if (!gameStarted && (e.key === " " || e.key === "Enter")) {
+        startGame();
+    }
+}, true);
 
 // ================================
 // Mobile Touch Controls
 // ================================
 
 window.addEventListener("touchstart", (e) => {
+    if (!gameStarted) {
+        startGame();
+        return;
+    }
     touchStartX = e.changedTouches[0].screenX;
     touchStartY = e.changedTouches[0].screenY;
 });
 
 window.addEventListener("touchend", (e) => {
-    if (gameOver) return;
+    if (gameOver || !gameStarted) return;
 
     touchEndX = e.changedTouches[0].screenX;
     touchEndY = e.changedTouches[0].screenY;
